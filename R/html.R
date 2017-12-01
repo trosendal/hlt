@@ -81,6 +81,7 @@ html_thead <- function(x)
 ##' @export
 html_tbody <- function(x)
 {
+    stopifnot(is.data.frame(x))
     content <- lapply(seq_len(nrow(x)), function(i) {
         html_tr(x[i, ])
     })
