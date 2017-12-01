@@ -11,4 +11,6 @@ Type: Package
 LazyLoad: yes
 Depends:
     R (>= 3.4.0)
+Collate:
+    'html.R'
 RoxygenNote: 6.0.1
