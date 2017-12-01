@@ -24,7 +24,12 @@ stopifnot(identical(html_tr(data.frame(a = 1, b = 2, c = 3)),
                         .Names = c("tag", "content"),
                         class = c("html_tr", "html_object"))))
 
-h <-as.data.frame( html_table(cars))
+h <-as.data.frame(html_table(cars))
+h$speed <- as.numeric(h$speed)
+h$dist <- as.numeric(h$dist)
+stopifnot(identical(h, cars))
+
+h <-as.data.frame(html_table(cars, tfoot = TRUE))
 h$speed <- as.numeric(h$speed)
 h$dist <- as.numeric(h$dist)
 stopifnot(identical(h, cars))

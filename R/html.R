@@ -102,15 +102,23 @@ html_foot <- function(x)
 ##' Create an \sQuote{HTML} table
 ##'
 ##' @param x \code{data.frame} with the content of the table.
+##' @param tfoot use a tfoot tag.
 ##' @return an \code{html_object}.
 ##' @export
-html_table <- function(x)
+html_table <- function(x, tfoot = FALSE)
 {
     stopifnot(is.data.frame(x))
-    header <- html_thead(colnames(x))
-    content <- html_tbody(x[1:(nrow(x)-1),])
-    foot <- html_foot(x[nrow(x),])
-    html_object("table", c(list(header), list(content), list(foot)))
+    header <- list(html_thead(colnames(x)))
+    if (isTRUE(tfoot)) {
+        i <- seq_len(nrow(x))
+        content <- list(html_tbody(x[i[-length(i)], ]))
+        foot <- list(html_foot(x[i[length(i)], ]))
+    } else {
+        content <- list(html_tbody(x))
+        foot <- NULL
+    }
+
+    html_object("table", c(header, foot, content))
 }
 
 colnames_html_thead <- function(x)
@@ -150,7 +158,7 @@ as.data.frame.html_table <- function(x, row.names, optional, ...)
 {
     df <- as.data.frame(x$content[[2]])
     if (length(x$content) > 2)
-        df <- rbind(df, as.data.frame(x$content[[3]]))
+        df <- rbind(as.data.frame(x$content[[3]]), df)
     colnames(df) <- colnames_html_thead(x$content[[1]])
     df
 }

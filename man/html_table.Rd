@@ -4,10 +4,12 @@
 \alias{html_table}
 \title{Create an \sQuote{HTML} table}
 \usage{
-html_table(x)
+html_table(x, tfoot = FALSE)
 }
 \arguments{
 \item{x}{\code{data.frame} with the content of the table.}
+
+\item{tfoot}{use a tfoot tag.}
 }
 \value{
 an \code{html_object}.
