@@ -1,3 +1,4 @@
+##' @export
 td <- function(x, style = NULL){
     stopifnot(is.character(x),
               length(x) == 1)
@@ -5,103 +6,95 @@ td <- function(x, style = NULL){
                    style = style),
               class = "html_td")
 }
-
+##' @export
 html <- function(x, ...) UseMethod("html")
-
+##' @export
 html.html_td <- function(x) {
     if(!is.null(x$style)) x$style <- paste0(" ", x$style)
     paste0("<td", x$style, "> ", x$content, " </td>")
 }
-
+##' @export
 print.html_td <- function(x, indent = "")
 {
     cat(indent, html(x), sep = "")
 }
-
+##' @export
 tr <- function(x, ...) UseMethod("tr")
-
+##' @export
 tr.character <- function(x, style = NULL) {
     structure(list(content = lapply(x, td),
                    style = style),
               class = "html_tr")
 }
-
+##' @export
+tr.list <- function(x, style = NULL) {
+    lapply(x, function(y){
+        stopifnot(class(y) == "html_td")
+    })
+    structure(list(content = x,
+                   style = style),
+              class = "html_tr")
+}
+##' @export
 html.html_tr <- function(x, ...)
 {
     paste0("<tr>",
            sapply(x$content, function(y) html(y)),
            "</tr>")
 }
-
+##' @export
 print.html_tr <- function(x, indent = "")
 {
     cat(indent, html(x), sep = "")
 }
+##' @export
+html_table <- function(x, ...) UseMethod("html_table")
+##' @export
+html_table.list <- function(x, style = NULL) {
+    structure(list(content = lapply(x, tr),
+                   style = style),
+              class = "html_table")
+}
 
+##' @export
+html_table.data.frame <- function(x, names = NULL) {
+    lapply(x, function(y){
+        stopifnot(class(y) %in% c("character", "numeric"))
+    })
+    if(is.null(names)) {
+        x <- rbind(names(x), x)
+    } else {
+        x <- rbind(names, x)
+    }
+    x <- as.list(as.data.frame(t(as.matrix(x)), stringsAsFactors = FALSE))
+    html_table(x)
+}
+##' @export
+html_table.matrix <- function(x, names = NULL) {
+    stopifnot(length(names) == ncol(x))
+    stopifnot(class(names) %in% c("character", "numeric"))
+    stopifnot(typeof(x) %in% c("character", "numeric"))
+    x <- rbind(names, x)
+    x <- as.list(as.data.frame(t(x), stringsAsFactors = FALSE))
+    html_table(x)
+}
 
-
-## tr.list <- function(x, style = NULL) {
-##     lapply(x, function(y){
-##         stopifnot(class(y) == "td")
-##     })
-##     row <- list(content = x,
-##                 style = style)
-##     class(row) <- "tr"
-##     return(row)
-## }
-
-## print.tr <- function(x){
-##     if(!is.null(x$style)) x$style <- paste0(" ", x$style)
-##     row <- do.call("paste", lapply(x$content, function(y) {
-##                print(y)
-##            }))
-##     paste0("<tr",
-##            x$style,
-##            "> ",
-##            row,
-##            " </tr>")
-## }
-
-## html_table.list <- function(x, style = NULL) {
-##     table <- list(content = lapply(x, tr),
-##                   style = style)
-##     class(table) <- "html_table"
-##     return(table)
-## }
-## html_table <- function(x, ...) UseMethod("html_table")
-
-## html_table.data.frame <- function(x, names = NULL) {
-##     lapply(x, function(y){
-##         stopifnot(class(y) %in% c("character", "numeric"))
-##     })
-##     if(is.null(names)) {
-##         x <- rbind(names(x), x)
-##     } else {
-##         x <- rbind(names, x)
-##     }
-##     x <- as.list(as.data.frame(t(as.matrix(x)), stringsAsFactors = FALSE))
-##     html_table(x)
-## }
-
-## html_table.matrix <- function(x, names = NULL) {
-##     stopifnot(length(names) == ncol(x))
-##     stopifnot(class(names) %in% c("character", "numeric"))
-##     stopifnot(typeof(x) %in% c("character", "numeric"))
-##     x <- rbind(names, x)
-##     x <- as.list(as.data.frame(t(x), stringsAsFactors = FALSE))
-##     html_table(x)
-## }
-
-## print.html_table <- function(x){
+## ##' @export
+## html.html_table <- function(x){
 ##     if(!is.null(x$style)) x$style <- paste0(" ", x$style)
 ##     table <- paste(lapply(x$content, function(y) {
-##                paste0("    ", print(y))
+##                html(y)
 ##            }), collapse = "\n")
 ##     paste0("<table",
 ##            x$style,
 ##            ">\n",
 ##            table,
 ##            "\n</table>")
+## }
+
+## ##' @export
+## print.html_table <- function(x, indent = ""){
+##     cat(indent, html(x), sep = "")
 ## }
 
 ## html_body <- function(x, ...) UseMethod("html_body")
