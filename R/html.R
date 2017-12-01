@@ -1,163 +1,113 @@
-##' Create a standard cell in an \sQuote{HTML} table
-##'
-##' @param x the content to display.
-##' @param style the style to apply.
-##' @return an \code{html_td} object.
+html_object <- function(tag, content)
+{
+    structure(list(tag = tag, content = content),
+              class = c(paste0("html_", tag), "html_object"))
+}
+
 ##' @export
-td <- function(x, style = NULL){
-    stopifnot(is.character(x),
-              length(x) == 1)
-    structure(list(content = x,
-                   style = style),
-              class = "html_td")
+print.html_object <- function(x)
+{
+    cat(html(x))
 }
 
 ##' @export
 html <- function(x, ...) UseMethod("html")
-##' @export
-html.html_td <- function(x) {
-    if(!is.null(x$style)) x$style <- paste0(" ", x$style)
-    paste0("<td", x$style, "> ", x$content, " </td>")
-}
-##' @export
-print.html_td <- function(x, indent = "")
-{
-    cat(indent, html(x), sep = "")
-}
-##' @export
-tr <- function(x, ...) UseMethod("tr")
-##' @export
-tr.character <- function(x, style = NULL) {
-    structure(list(content = lapply(x, td),
-                   style = style),
-              class = "html_tr")
-}
-##' @export
-tr.list <- function(x, style = NULL) {
-    lapply(x, function(y){
-        stopifnot(class(y) == "html_td")
-    })
-    structure(list(content = x,
-                   style = style),
-              class = "html_tr")
-}
-##' @export
-html.html_tr <- function(x, ...)
-{
-    paste0("<tr>",
-           sapply(x$content, function(y) html(y)),
-           "</tr>")
-}
-##' @export
-print.html_tr <- function(x, indent = "")
-{
-    cat(indent, html(x), sep = "")
-}
-##' @export
-html_table <- function(x, ...) UseMethod("html_table")
-##' @export
-html_table.list <- function(x, style = NULL) {
-    structure(list(content = lapply(x, tr),
-                   style = style),
-              class = "html_table")
-}
 
 ##' @export
-html_table.data.frame <- function(x, names = NULL) {
-    lapply(x, function(y){
-        stopifnot(class(y) %in% c("character", "numeric"))
-    })
-    if(is.null(names)) {
-        x <- rbind(names(x), x)
+html.default <- function(x) {
+    if (is.list(x$content)) {
+        content <- paste0(sapply(x$content, html), collapse = "")
     } else {
-        x <- rbind(names, x)
+        content <- x$content
     }
-    x <- as.list(as.data.frame(t(as.matrix(x)), stringsAsFactors = FALSE))
-    html_table(x)
+
+    paste0("<", x$tag, ">", content, "</", x$tag, ">")
 }
+
+##' Create a cell in an \sQuote{HTML} table
+##'
+##' @param x the content to display.
+##' @return an \code{html_object}.
 ##' @export
-html_table.matrix <- function(x, names = NULL) {
-    stopifnot(length(names) == ncol(x))
-    stopifnot(class(names) %in% c("character", "numeric"))
-    stopifnot(typeof(x) %in% c("character", "numeric"))
-    x <- rbind(names, x)
-    x <- as.list(as.data.frame(t(x), stringsAsFactors = FALSE))
-    html_table(x)
+html_td <- function(x)
+{
+    content <- as.character(x)
+    stopifnot(length(content) == 1)
+    html_object("td", content)
 }
 
-## ##' @export
-## html.html_table <- function(x){
-##     if(!is.null(x$style)) x$style <- paste0(" ", x$style)
-##     table <- paste(lapply(x$content, function(y) {
-##                html(y)
-##            }), collapse = "\n")
-##     paste0("<table",
-##            x$style,
-##            ">\n",
-##            table,
-##            "\n</table>")
-## }
+##' Create a header cell in an \sQuote{HTML} table
+##'
+##' @param x the content to display.
+##' @return an \code{html_object}.
+##' @export
+html_th <- function(x)
+{
+    content <- as.character(x)
+    stopifnot(length(content) == 1)
+    html_object("th", content)
+}
 
-## ##' @export
-## print.html_table <- function(x, indent = ""){
-##     cat(indent, html(x), sep = "")
-## }
+##' Create a row in an \sQuote{HTML} table
+##'
+##' @param x one row \code{data.frame} with the content of the row.
+##' @return an \code{html_object}.
+##' @export
+html_tr <- function(x)
+{
+    stopifnot(is.data.frame(x), nrow(x) == 1)
+    content <- lapply(seq_len(ncol(x)), function(j) {
+        html_td(x[, j])
+    })
+    html_object("tr", content)
+}
 
-## html_body <- function(x, ...) UseMethod("html_body")
+##' Create a \sQuote{<thead>} tag in an \sQuote{HTML} table
+##'
+##' @param x one row \code{data.frame} with the content of the row.
+##' @return an \code{html_object}.
+##' @export
+html_thead <- function(x)
+{
+    content <- list(html_object("tr", lapply(as.character(x), html_th)))
+    html_object("thead", content)
+}
 
-## html_body.list <- function(x) {
-##     lapply(x, function(y){
-##         stopifnot(class(y) %in% c("html_table"))
-##     })
-##     class(x) <- "html_body"
-##     return(x)
-## }
+##' Create an \sQuote{HTML} table
+##'
+##' @param x \code{data.frame} with the content of the table.
+##' @return an \code{html_object}.
+##' @export
+html_table <- function(x)
+{
+    stopifnot(is.data.frame(x))
+    header <- html_thead(colnames(x))
+    content <- lapply(seq_len(nrow(x)), function(i) {
+        html_tr(x[i, ])
+    })
+    html_object("table", c(list(header), content))
+}
 
-## html_body.html_table<- function(x) {
-##     stopifnot(class(x) %in% c("html_table"))
-##     x <- list(x)
-##     class(x) <- "html_body"
-##     return(x)
-## }
+##' @export
+as.data.frame.html_object <- function(x)
+{
+    stop("Not implemented")
+}
 
-## print.html_body <- function(x) {
-##     body <- paste(lapply(x, function(y){
-##         print(y)
-##     }), collapse = "\n")
-##     paste0("<body>\n",
-##            body, "\n</body>")
-## }
+##' @export
+as.data.frame.html_table <- function(x)
+{
+    ## Combine all td cells to a data.frame. Skip first list item
+    ## since it's the thead.
+    df <- as.data.frame(do.call("rbind", lapply(x$content[-1], function(tr) {
+        matrix(sapply(tr$content, function(td) {td$content}), nrow = 1)
+    })))
 
-## '[.html_table' <- function(x, i, j) {
-##     x$content[[1]]
-## }
+    ## Extract the th content and use for colnames.
+    thead <- x$content[[1]]
+    colnames(df) <- sapply(thead$content[[1]]$content, function(th) {
+        th$content
+    })
 
-## '[.tr' <- function(x, j) {
-##     tr(x$content[j], x$style)
-## }
-
-## '[[.tr' <- function(x, j) {
-##     x$content[j]
-## }
-
-## class(tr(x$content[1:2]))
-
-## a <- list(c(1,2,3,4,5), c("a", "b", "c", "d", "e"))
-
-## cat(print(html_table(a)))
-
-## x <- (tr(c(1,2,3)))
-## show(x)
-## b <- html_table(a)
-
-## cat(print(b))
-## str(b)
-
-## show.tr <- function(){"foo"}
-
-
-## b2 <- html_body(list(b, b, b, b))
-
-## cat(print(b2))
-
-## writeLines(print(html_body(html_table(cars))), "foo.html")
+    df
+}
