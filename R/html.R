@@ -74,10 +74,9 @@ html_thead <- function(x)
     html_object("thead", content)
 }
 
-
 ##' Create a \sQuote{<tbody>} tag in an \sQuote{HTML} table
 ##'
-##' @param x one row \code{data.frame} with the content of the row.
+##' @param x \code{data.frame} with the content of the table body.
 ##' @return an \code{html_object}.
 ##' @export
 html_tbody <- function(x)
@@ -88,6 +87,16 @@ html_tbody <- function(x)
     html_object("tbody", content)
 }
 
+##' Create a \sQuote{<tfoot>} tag in an \sQuote{HTML} table
+##'
+##' @param x one row \code{data.frame} with the content of the foot.
+##' @return an \code{html_object}.
+##' @export
+html_foot <- function(x)
+{
+    content <- list(html_object("tr", lapply(as.character(x), html_th)))
+    html_object("tfoot", content)
+}
 
 ##' Create an \sQuote{HTML} table
 ##'
@@ -98,8 +107,9 @@ html_table <- function(x)
 {
     stopifnot(is.data.frame(x))
     header <- html_thead(colnames(x))
-    content <- html_tbody(x)
-    html_object("table", c(list(header), list(content)))
+    content <- html_tbody(x[1:(nrow(x)-1),])
+    foot <- html_foot(x[nrow(x),])
+    html_object("table", c(list(header), list(content), list(foot)))
 }
 
 ##' @export
