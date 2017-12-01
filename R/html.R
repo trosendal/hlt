@@ -85,6 +85,7 @@ html_tbody <- function(x)
     content <- lapply(seq_len(nrow(x)), function(i) {
         html_tr(x[i, ])
     })
+    html_object("tbody", content)
 }
 
 
@@ -98,7 +99,7 @@ html_table <- function(x)
     stopifnot(is.data.frame(x))
     header <- html_thead(colnames(x))
     content <- html_tbody(x)
-    html_object("table", c(list(header), content))
+    html_object("table", c(list(header), list(content)))
 }
 
 ##' @export
