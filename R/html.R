@@ -14,7 +14,8 @@ print.html_object <- function(x)
 html <- function(x, ...) UseMethod("html")
 
 ##' @export
-html.default <- function(x) {
+html.default <- function(x)
+{
     if (is.list(x$content)) {
         content <- paste0(sapply(x$content, html), collapse = "")
     } else {
