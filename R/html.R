@@ -90,12 +90,6 @@ html_table <- function(x)
 }
 
 ##' @export
-as.data.frame.html_object <- function(x)
-{
-    stop("Not implemented")
-}
-
-##' @export
 as.data.frame.html_table <- function(x)
 {
     ## Combine all td cells to a data.frame. Skip first list item
