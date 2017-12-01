@@ -5,7 +5,7 @@ html_object <- function(tag, content)
 }
 
 ##' @export
-print.html_object <- function(x)
+print.html_object <- function(x, ...)
 {
     cat(html(x))
 }
@@ -14,7 +14,7 @@ print.html_object <- function(x)
 html <- function(x, ...) UseMethod("html")
 
 ##' @export
-html.default <- function(x)
+html.default <- function(x, ...)
 {
     if (is.list(x$content)) {
         content <- paste0(sapply(x$content, html), collapse = "")
@@ -102,7 +102,7 @@ html_table <- function(x)
 }
 
 ##' @export
-as.data.frame.html_table <- function(x)
+as.data.frame.html_table <- function(x, row.names, optional, ...)
 {
     ## Combine all td cells to a data.frame. Skip first list item
     ## since it's the thead.
