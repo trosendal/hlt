@@ -3,7 +3,7 @@ Package: hlt
 Title: Package to produce html and maybe latex tables
 Version: 0.1
 Date: 2017-12-01
-Author: Thomas Rosendal
+Author: Thomas Rosendal, Stefan Widgren
 Maintainer: Thomas Rosendal <thomas.rosendal@sva.se>
 Description: The package will generate an html table.
 License: GPL-3
@@ -11,4 +11,6 @@ Type: Package
 LazyLoad: yes
 Depends:
     R (>= 3.4.0)
+Collate:
+    'html.R'
 RoxygenNote: 6.0.1
