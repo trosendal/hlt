@@ -7,7 +7,7 @@
 html_tbody(x)
 }
 \arguments{
-\item{x}{one row \code{data.frame} with the content of the row.}
+\item{x}{\code{data.frame} with the content of the table body.}
 }
 \value{
 an \code{html_object}.
