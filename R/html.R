@@ -1,3 +1,8 @@
+##' Create a standard cell in an \sQuote{HTML} table
+##'
+##' @param x the content to display.
+##' @param style the style to apply.
+##' @return an \code{html_td} object.
 ##' @export
 td <- function(x, style = NULL){
     stopifnot(is.character(x),
@@ -6,6 +11,7 @@ td <- function(x, style = NULL){
                    style = style),
               class = "html_td")
 }
+
 ##' @export
 html <- function(x, ...) UseMethod("html")
 ##' @export
