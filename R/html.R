@@ -113,20 +113,44 @@ html_table <- function(x)
     html_object("table", c(list(header), list(content), list(foot)))
 }
 
+colnames_html_thead <- function(x)
+{
+    ## Extract the th content and use for colnames.
+    sapply(x$content[[1]]$content, function(th) {
+        th$content
+    })
+}
+
+##' @export
+as.data.frame.html_tbody <- function(x, row.names, optional, ...)
+{
+    ## Combine all td cells.
+    m <- do.call("rbind", lapply(x$content, function(tr) {
+        matrix(sapply(tr$content, function(td) {td$content}), nrow = 1)
+    }))
+
+    ## Coerce to a data.frame.
+    as.data.frame(m, stringsAsFactors = FALSE)
+}
+
+##' @export
+as.data.frame.html_tfoot <- function(x, row.names, optional, ...)
+{
+    ## Combine all td cells.
+    m <- do.call("rbind", lapply(x$content, function(tr) {
+        matrix(sapply(tr$content, function(td) {td$content}), nrow = 1)
+    }))
+
+    ## Coerce to a data.frame.
+    as.data.frame(m, stringsAsFactors = FALSE)
+}
+
 ##' @export
 as.data.frame.html_table <- function(x, row.names, optional, ...)
 {
-    ## Combine all td cells to a data.frame. Skip first list item
-    ## since it's the thead.
-    df <- as.data.frame(do.call("rbind", lapply(x$content[-1], function(tr) {
-        matrix(sapply(tr$content, function(td) {td$content}), nrow = 1)
-    })))
-
-    ## Extract the th content and use for colnames.
-    thead <- x$content[[1]]
-    colnames(df) <- sapply(thead$content[[1]]$content, function(th) {
-        th$content
-    })
-
+    df <- as.data.frame(x$content[[2]])
+    if (length(x$content) > 2)
+        df <- rbind(df, as.data.frame(x$content[[3]]))
+    colnames(df) <- colnames_html_thead(x$content[[1]])
     df
 }
