@@ -133,7 +133,7 @@ html_tbody <- function(x)
 ##' @export
 html_tfoot <- function(x)
 {
-    content <- list(html_object("tr", lapply(x, html_th)))
+    content <- html_object("tr", lapply(x, html_th))
     html_object("tfoot", content)
 }
 
@@ -182,7 +182,7 @@ as.data.frame.html_tbody <- function(x, row.names, optional, ...)
 ##' @export
 as.data.frame.html_tfoot <- function(x, row.names, optional, ...)
 {
-    do.call("rbind", lapply(x$content, as.data.frame))
+    as.data.frame(x$content)
 }
 
 ##' @export
