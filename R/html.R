@@ -163,7 +163,7 @@ html_table <- function(x, tfoot = FALSE)
 as.character.html_thead <- function(x)
 {
     ## Conbine the content of the th cells to a character vector.
-    sapply(x$content$content, "[", "content")
+    as.character(sapply(x$content$content, "[", "content"))
 }
 
 ##' @export
