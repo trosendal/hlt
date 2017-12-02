@@ -97,7 +97,7 @@ html_tbody <- function(x)
 ##' @param x one row \code{data.frame} with the content of the foot.
 ##' @return an \code{html_object}.
 ##' @export
-html_foot <- function(x)
+html_tfoot <- function(x)
 {
     content <- list(html_object("tr", lapply(x, html_th)))
     html_object("tfoot", content)
@@ -116,7 +116,7 @@ html_table <- function(x, tfoot = FALSE)
     if (isTRUE(tfoot)) {
         i <- seq_len(nrow(x))
         content <- list(html_tbody(x[i[-length(i)], ]))
-        foot <- list(html_foot(x[i[length(i)], ]))
+        foot <- list(html_tfoot(x[i[length(i)], ]))
     } else {
         content <- list(html_tbody(x))
         foot <- NULL
@@ -136,11 +136,8 @@ colnames_html_thead <- function(x)
 ##' @export
 as.data.frame.html_tr <- function(x, row.names, optional, ...)
 {
-    ## Combine all td cells.
-    m <- matrix(sapply(x$content, function(td) {td$content}), nrow = 1)
-
-    ## Coerce to a data.frame.
-    as.data.frame(m, stringsAsFactors = FALSE)
+    ## Combine all td cells and coerce to a data.frame
+    as.data.frame(lapply(x$content, "[", "content"), stringsAsFactors = FALSE)
 }
 
 ##' @export
