@@ -112,17 +112,17 @@ html_tfoot <- function(x)
 html_table <- function(x, tfoot = FALSE)
 {
     stopifnot(is.data.frame(x))
-    header <- list(html_thead(colnames(x)))
+    header <- html_thead(colnames(x))
     if (isTRUE(tfoot)) {
         i <- seq_len(nrow(x))
-        content <- list(html_tbody(x[i[-length(i)], ]))
-        foot <- list(html_tfoot(x[i[length(i)], ]))
+        content <- html_tbody(x[i[-length(i)], ])
+        foot <- html_tfoot(x[i[length(i)], ])
     } else {
-        content <- list(html_tbody(x))
+        content <- html_tbody(x)
         foot <- NULL
     }
 
-    html_object("table", c(header, foot, content))
+    html_object("table", header + foot + content)
 }
 
 ##' @export
@@ -162,4 +162,24 @@ as.data.frame.html_table <- function(x, row.names, optional, ...)
         df <- rbind(as.data.frame(x$content[[3]]), df)
     colnames(df) <- as.character(x$content[[1]])
     df
+}
+
+##' @export
+Ops.html_object <- function(e1, e2)
+{
+    if (!identical(.Generic , "+"))
+        stop(paste0("'", .Generic, "' not defined for 'html_object'"))
+    if (is.null(e1))
+        return(e2)
+    if (is.null(e2))
+        return(e1)
+    stopifnot(is.list(e1), is.list(e2))
+    if (inherits(e1, "html_object")) {
+        if (inherits(e2, "html_object"))
+            return(c(list(e1), list(e2)))
+        stop("Not implemented")
+    }
+
+    e1[[length(e1)+1]] <- e2
+    e1
 }
