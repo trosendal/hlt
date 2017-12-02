@@ -46,9 +46,11 @@ html_td <- function(x)
 ##' @export
 html_th <- function(x)
 {
-    content <- as.character(x)
-    stopifnot(length(content) == 1)
-    html_object("th", content)
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("th", x)
 }
 
 ##' Create a row in an \sQuote{HTML} table
@@ -72,7 +74,7 @@ html_tr <- function(x)
 ##' @export
 html_thead <- function(x)
 {
-    content <- list(html_object("tr", lapply(as.character(x), html_th)))
+    content <- list(html_object("tr", lapply(x, html_th)))
     html_object("thead", content)
 }
 
@@ -97,7 +99,7 @@ html_tbody <- function(x)
 ##' @export
 html_foot <- function(x)
 {
-    content <- list(html_object("tr", lapply(as.character(x), html_th)))
+    content <- list(html_object("tr", lapply(x, html_th)))
     html_object("tfoot", content)
 }
 
