@@ -130,27 +130,25 @@ colnames_html_thead <- function(x)
 }
 
 ##' @export
-as.data.frame.html_tbody <- function(x, row.names, optional, ...)
+as.data.frame.html_tr <- function(x, row.names, optional, ...)
 {
     ## Combine all td cells.
-    m <- do.call("rbind", lapply(x$content, function(tr) {
-        matrix(sapply(tr$content, function(td) {td$content}), nrow = 1)
-    }))
+    m <- matrix(sapply(x$content, function(td) {td$content}), nrow = 1)
 
     ## Coerce to a data.frame.
     as.data.frame(m, stringsAsFactors = FALSE)
 }
 
 ##' @export
+as.data.frame.html_tbody <- function(x, row.names, optional, ...)
+{
+    do.call("rbind", lapply(x$content, as.data.frame))
+}
+
+##' @export
 as.data.frame.html_tfoot <- function(x, row.names, optional, ...)
 {
-    ## Combine all td cells.
-    m <- do.call("rbind", lapply(x$content, function(tr) {
-        matrix(sapply(tr$content, function(td) {td$content}), nrow = 1)
-    }))
-
-    ## Coerce to a data.frame.
-    as.data.frame(m, stringsAsFactors = FALSE)
+    do.call("rbind", lapply(x$content, as.data.frame))
 }
 
 ##' @export

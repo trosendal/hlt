@@ -3,6 +3,7 @@
 S3method(as.data.frame,html_table)
 S3method(as.data.frame,html_tbody)
 S3method(as.data.frame,html_tfoot)
+S3method(as.data.frame,html_tr)
 S3method(html,default)
 S3method(print,html_object)
 export(html)
