@@ -108,7 +108,7 @@ html_tr <- function(x)
 ##' @export
 html_thead <- function(x)
 {
-    content <- list(html_object("tr", lapply(x, html_th)))
+    content <- html_object("tr", lapply(x, html_th))
     html_object("thead", content)
 }
 
@@ -163,7 +163,7 @@ html_table <- function(x, tfoot = FALSE)
 as.character.html_thead <- function(x)
 {
     ## Conbine the content of the th cells to a character vector.
-    sapply(x$content[[1]]$content, "[", "content")
+    sapply(x$content$content, "[", "content")
 }
 
 ##' @export
