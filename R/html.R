@@ -17,7 +17,11 @@ html <- function(x, ...) UseMethod("html")
 html.default <- function(x, ...)
 {
     if (is.list(x$content)) {
-        content <- paste0(sapply(x$content, html), collapse = "")
+        if (inherits(x$content, "html_object")) {
+            content <- html(x$content)
+        } else {
+            content <- paste0(sapply(x$content, html), collapse = "")
+        }
     } else {
         content <- x$content
     }
