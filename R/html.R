@@ -32,9 +32,11 @@ html.default <- function(x, ...)
 ##' @export
 html_td <- function(x)
 {
-    content <- as.character(x)
-    stopifnot(length(content) == 1)
-    html_object("td", content)
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("td", x)
 }
 
 ##' Create a header cell in an \sQuote{HTML} table
