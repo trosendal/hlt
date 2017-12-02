@@ -25,6 +25,16 @@ html.default <- function(x, ...)
     paste0("<", x$tag, ">", content, "</", x$tag, ">")
 }
 
+##' Create an \sQuote{HTML} page
+##'
+##' @param x the content to display.
+##' @return an \code{html_object}.
+##' @export
+html_html <- function(x)
+{
+    html_object("html", x)
+}
+
 ##' Create a cell in an \sQuote{HTML} table
 ##'
 ##' @param x the content to display.
