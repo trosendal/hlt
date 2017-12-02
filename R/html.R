@@ -26,7 +26,17 @@ html.default <- function(x, ...)
         content <- x$content
     }
 
-    paste0("<", x$tag, ">", content, "</", x$tag, ">")
+    ## Check for attributes, for example, 'style'
+    a <- setdiff(names(attributes(x)), c("names", "class"))
+    if (length(a)) {
+        a <- sapply(a, function(i) {paste0(i, "=\"", attr(x, i), "\"")})
+        a <- paste0(a, collapse = " ")
+        a <- paste0(" ", a)
+    } else {
+        a <- ""
+    }
+
+    paste0("<", x$tag, a, ">", content, "</", x$tag, ">")
 }
 
 ##' Create a \sQuote{<html>} tag in an \sQuote{HTML} page
@@ -216,4 +226,45 @@ Ops.html_object <- function(e1, e2)
 
     e1[[length(e1)+1]] <- e2
     e1
+}
+
+##' Add attributes to a tag
+##'
+##' @param tag add attributes to tag.
+##' @param ... named attributes to add e.g. \code{style =
+##'     "background-color: lightblue;"}.
+##' @return tag
+##' @export
+##' @examples
+##' \dontrun{
+##' h <- html_html(html_body(
+##'     html_p("Display the 'cars' dataset as a table") +
+##'     html_table(cars) +
+##'     tag_attr(html_p("Disaplay the 'cars' dataset again, but now with column sums in a 'tfoot' tag"),
+##'              style = "background-color: lightblue;") +
+##'     html_table(rbind(cars, colSums(cars)), tfoot = TRUE) +
+##'     html_p("Display the 'mtcars' dataset as a table") +
+##'     html_table(mtcars) +
+##'     html_p("Nice &#9786;")))
+##'
+##' filename <- tempfile(fileext = ".html")
+##' capture.output(h, file = filename)
+##' browseURL(filename)
+##' }
+tag_attr <- function(tag, ...)
+{
+    ## Check arguments
+    stopifnot(inherits(tag, "html_object"))
+    a <- list(...)
+    if (any(nchar(names(a)) == 0))
+        stop("Missing attribute name(s)")
+    if (any(duplicated(names(a))))
+        stop("Missing attribute name(s)")
+
+    ## Assign attributes to tag
+    for (i in seq_len(length(a))) {
+        attr(tag, names(a)[i]) <- a[[i]]
+    }
+
+    tag
 }
