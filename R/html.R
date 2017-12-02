@@ -125,12 +125,11 @@ html_table <- function(x, tfoot = FALSE)
     html_object("table", c(header, foot, content))
 }
 
-colnames_html_thead <- function(x)
+##' @export
+as.character.html_thead <- function(x)
 {
-    ## Extract the th content and use for colnames.
-    sapply(x$content[[1]]$content, function(th) {
-        th$content
-    })
+    ## Conbine the content of the th cells to a character vector.
+    sapply(x$content[[1]]$content, "[", "content")
 }
 
 ##' @export
@@ -155,9 +154,12 @@ as.data.frame.html_tfoot <- function(x, row.names, optional, ...)
 ##' @export
 as.data.frame.html_table <- function(x, row.names, optional, ...)
 {
+    ## content index 1: thead
+    ## content index 2: tfoot if tfoot exists, else tbody
+    ## content index 3: tbody if tfoot exists, else unused
     df <- as.data.frame(x$content[[2]])
     if (length(x$content) > 2)
         df <- rbind(as.data.frame(x$content[[3]]), df)
-    colnames(df) <- colnames_html_thead(x$content[[1]])
+    colnames(df) <- as.character(x$content[[1]])
     df
 }
