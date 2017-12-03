@@ -64,6 +64,16 @@ html_body <- function(x, ...)
     html_object("body", x, ...)
 }
 
+##' Create a \sQuote{<hr />} tag in an \sQuote{HTML} page
+##'
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_hr <- function(...)
+{
+    html_object("hr", ...)
+}
+
 ##' Create a \sQuote{<p>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
