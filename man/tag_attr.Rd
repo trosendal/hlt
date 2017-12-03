@@ -20,9 +20,15 @@ Add attributes to a tag
 }
 \examples{
 \dontrun{
+img <- tempfile(fileext = ".png")
+png(img)
+plot(speed ~ dist, cars)
+dev.off()
+
 h <- html_html(html_body(
     html_p("Display the 'cars' dataset as a table") +
     html_table(cars) +
+    html_img(src = img, alt = "'cars' dataset") +
     tag_attr(html_p("Display the 'cars' dataset again, but now with column sums in a 'tfoot' tag"),
              style = "background-color: lightblue;") +
     html_table(rbind(cars, colSums(cars)), tfoot = TRUE) +
