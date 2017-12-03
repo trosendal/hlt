@@ -49,6 +49,17 @@ html_html <- function(x, ...)
     html_object("html", x, ...)
 }
 
+##' Create a \sQuote{<head>} tag in an \sQuote{HTML} page
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_head <- function(x, ...)
+{
+    html_object("head", x, ...)
+}
+
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
