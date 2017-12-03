@@ -120,6 +120,19 @@ html_style <- function(content, ...)
     html_object("style", content, ...)
 }
 
+##' Create a \sQuote{<div>} tag
+##'
+##' @param content of the div tag.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_div <- function(content, ...)
+{
+    if (missing(content))
+        stop("Missing 'content' argument")
+    html_object("div", content, ...)
+}
+
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
