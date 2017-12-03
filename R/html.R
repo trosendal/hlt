@@ -36,6 +36,8 @@ html.default <- function(x, ...)
         a <- ""
     }
 
+    if (is.null(content))
+        return(paste0("<", x$tag, a, " />"))
     paste0("<", x$tag, a, ">", content, "</", x$tag, ">")
 }
 
