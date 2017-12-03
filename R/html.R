@@ -133,6 +133,20 @@ html_div <- function(content, ...)
     html_object("div", content, ...)
 }
 
+##' Create a \sQuote{<script>} tag
+##'
+##' @param content of the script tag.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_script <- function(content, ...)
+{
+    if (missing(content))
+        stop("Missing 'content' argument")
+    content <- paste0(as.character(content), collapse = "\n")
+    html_object("script", content, ...)
+}
+
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
