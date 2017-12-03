@@ -17,14 +17,14 @@ html <- function(x, ...) UseMethod("html")
 ##' @export
 html.default <- function(x, ...)
 {
-    if (is.list(x$content)) {
-        if (inherits(x$content, "html_object")) {
-            content <- html(x$content)
+    ## Extract and handle content.
+    content <- x$content
+    if (is.list(content)) {
+        if (inherits(content, "html_object")) {
+            content <- html(content)
         } else {
-            content <- paste0(sapply(x$content, html), collapse = "")
+            content <- paste0(sapply(content, html), collapse = "")
         }
-    } else {
-        content <- x$content
     }
 
     ## Check for attributes, for example, 'style'
