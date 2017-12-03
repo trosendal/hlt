@@ -1,8 +1,6 @@
-Encoding: UTF-8
 Package: hlt
 Title: Package to produce html and maybe latex tables
 Version: 0.1
-Date: 2017-12-01
 Author: Thomas Rosendal, Stefan Widgren
 Maintainer: Thomas Rosendal <thomas.rosendal@sva.se>
 Description: The package will generate an html table.
