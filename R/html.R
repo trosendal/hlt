@@ -1,7 +1,8 @@
-html_object <- function(tag, content)
+html_object <- function(tag, content = NULL, ...)
 {
-    structure(list(tag = tag, content = content),
-              class = c(paste0("html_", tag), "html_object"))
+    object <- list(tag = tag, content = content)
+    class(object) <- c(paste0("html_", tag), "html_object")
+    tag_attr(object, ...)
 }
 
 ##' @export
