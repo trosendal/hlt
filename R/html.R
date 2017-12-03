@@ -85,6 +85,21 @@ html_meta <- function(...)
     html_object("meta", ...)
 }
 
+##' Create a \sQuote{<link>} tag
+##'
+##' @param rel relationship between document and linked document.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_link <- function(rel, ...)
+{
+    if (missing(rel))
+        stop("Missing 'rel' argument")
+    object <- html_object("link")
+    object <- tag_attr(object, rel = rel)
+    tag_attr(object, ...)
+}
+
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
