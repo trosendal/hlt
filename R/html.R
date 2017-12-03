@@ -1,6 +1,6 @@
 html_object <- function(tag, content = NULL, ...)
 {
-    object <- list(tag = tag, content = content)
+    object <- list(tag = tag, content = content, attributes = list())
     class(object) <- c(paste0("html_", tag), "html_object")
     tag_attr(object, ...)
 }
@@ -28,11 +28,11 @@ html.default <- function(x, ...)
     }
 
     ## Check for attributes, for example, 'style'
-    a <- setdiff(names(attributes(x)), c("names", "class"))
-    if (length(a)) {
-        a <- sapply(a, function(i) {paste0(i, "=\"", attr(x, i), "\"")})
-        a <- paste0(a, collapse = " ")
-        a <- paste0(" ", a)
+    if (length(x$attributes)) {
+        a <- " "
+        for (i in seq_len(length(x$attributes))) {
+            a <- paste0(a, names(x$attributes)[i], "=\"", x$attributes[i], "\"")
+        }
     } else {
         a <- ""
     }
@@ -288,7 +288,7 @@ tag_attr <- function(tag, ...)
 
     ## Assign attributes to tag
     for (i in seq_len(length(a))) {
-        attr(tag, names(a)[i]) <- a[[i]]
+        tag$attributes[names(a)[i]] <- a[[i]]
     }
 
     tag
