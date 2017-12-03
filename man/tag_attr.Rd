@@ -29,6 +29,7 @@ h <- html_html(html_body(
     html_p("Display the 'mtcars' dataset as a table",
            style = "background-color: lightgreen;") +
     html_table(mtcars) +
+    html_hr() +
     html_p("Nice &#9786;")))
 
 filename <- tempfile(fileext = ".html")
