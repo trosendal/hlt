@@ -60,6 +60,21 @@ html_head <- function(x, ...)
     html_object("head", x, ...)
 }
 
+##' Create a \sQuote{<title>} tag
+##'
+##' @param title the title of the page.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_title <- function(title, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(title), is.numeric(title), is.character(title)))
+        title <- as.character(title)
+    stopifnot(length(title) == 1)
+    html_object("title", title, ...)
+}
+
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
