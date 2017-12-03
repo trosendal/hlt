@@ -106,6 +106,20 @@ html_link <- function(rel, ...)
     tag_attr(object, ...)
 }
 
+##' Create a \sQuote{<style>} tag
+##'
+##' @param content style information for an HTML document.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_style <- function(content, ...)
+{
+    if (missing(content))
+        stop("Missing 'content' argument")
+    content <- paste0(as.character(content), collapse = "\n")
+    html_object("style", content, ...)
+}
+
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
