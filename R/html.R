@@ -28,13 +28,9 @@ html.default <- function(x, ...)
     }
 
     ## Check for attributes, for example, 'style'
-    if (length(x$attributes)) {
-        a <- " "
-        for (i in seq_len(length(x$attributes))) {
-            a <- paste0(a, names(x$attributes)[i], "=\"", x$attributes[i], "\"")
-        }
-    } else {
-        a <- ""
+    a <- ""
+    for (i in seq_len(length(x$attributes))) {
+        a <- paste0(a, " ", names(x$attributes)[i], "=\"", x$attributes[i], "\"")
     }
 
     if (is.null(content))
@@ -72,6 +68,25 @@ html_body <- function(x, ...)
 html_hr <- function(...)
 {
     html_object("hr", ...)
+}
+
+##' Create a \sQuote{img} tag in an \sQuote{HTML} page
+##'
+##' @param src URL of the image.
+##' @param alt alternate text for the image.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_img <- function(src, alt, ...)
+{
+    if (missing(src))
+        stop("Missing 'src' argument")
+    if (missing(alt))
+        stop("Missing 'alt' argument")
+    object <- html_object("img")
+    object <- tag_attr(object, src = src)
+    object <- tag_attr(object, alt = alt)
+    tag_attr(object, ...)
 }
 
 ##' Create a \sQuote{<p>} tag in an \sQuote{HTML} page
