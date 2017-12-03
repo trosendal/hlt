@@ -4,10 +4,12 @@
 \alias{html_tbody}
 \title{Create a \sQuote{<tbody>} tag in an \sQuote{HTML} table}
 \usage{
-html_tbody(x)
+html_tbody(x, ...)
 }
 \arguments{
 \item{x}{\code{data.frame} with the content of the table body.}
+
+\item{...}{tag attributes.}
 }
 \value{
 an \code{html_object}.

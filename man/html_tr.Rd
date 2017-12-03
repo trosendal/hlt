@@ -4,10 +4,12 @@
 \alias{html_tr}
 \title{Create a row in an \sQuote{HTML} table}
 \usage{
-html_tr(x)
+html_tr(x, ...)
 }
 \arguments{
 \item{x}{one row \code{data.frame} with the content of the row.}
+
+\item{...}{tag attributes.}
 }
 \value{
 an \code{html_object}.

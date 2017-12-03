@@ -4,10 +4,12 @@
 \alias{html_p}
 \title{Create a \sQuote{<p>} tag in an \sQuote{HTML} page}
 \usage{
-html_p(x)
+html_p(x, ...)
 }
 \arguments{
 \item{x}{the content to display.}
+
+\item{...}{tag attributes.}
 }
 \value{
 an \code{html_object}.

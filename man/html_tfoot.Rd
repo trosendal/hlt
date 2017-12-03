@@ -4,10 +4,12 @@
 \alias{html_tfoot}
 \title{Create a \sQuote{<tfoot>} tag in an \sQuote{HTML} table}
 \usage{
-html_tfoot(x)
+html_tfoot(x, ...)
 }
 \arguments{
 \item{x}{one row \code{data.frame} with the content of the foot.}
+
+\item{...}{tag attributes.}
 }
 \value{
 an \code{html_object}.

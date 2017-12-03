@@ -4,10 +4,12 @@
 \alias{html_thead}
 \title{Create a \sQuote{<thead>} tag in an \sQuote{HTML} table}
 \usage{
-html_thead(x)
+html_thead(x, ...)
 }
 \arguments{
 \item{x}{one row \code{data.frame} with the content of the row.}
+
+\item{...}{tag attributes.}
 }
 \value{
 an \code{html_object}.

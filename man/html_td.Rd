@@ -4,10 +4,12 @@
 \alias{html_td}
 \title{Create a cell in an \sQuote{HTML} table}
 \usage{
-html_td(x)
+html_td(x, ...)
 }
 \arguments{
 \item{x}{the content to display.}
+
+\item{...}{tag attributes.}
 }
 \value{
 an \code{html_object}.
