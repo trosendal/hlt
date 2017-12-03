@@ -1,7 +1,7 @@
-html_object <- function(tag, content = NULL, ...)
+html_object <- function(.tag, .content = NULL, ...)
 {
-    object <- list(tag = tag, content = content, attributes = list())
-    class(object) <- c(paste0("html_", tag), "html_object")
+    object <- list(tag = .tag, content = .content, attributes = list())
+    class(object) <- c(paste0("html_", .tag), "html_object")
     tag_attr(object, ...)
 }
 
@@ -73,6 +73,16 @@ html_title <- function(title, ...)
         title <- as.character(title)
     stopifnot(length(title) == 1)
     html_object("title", title, ...)
+}
+
+##' Create a \sQuote{<meta>} tag
+##'
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_meta <- function(...)
+{
+    html_object("meta", ...)
 }
 
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
