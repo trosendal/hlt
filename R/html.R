@@ -259,7 +259,7 @@ tag_attr <- function(tag, ...)
     if (any(nchar(names(a)) == 0))
         stop("Missing attribute name(s)")
     if (any(duplicated(names(a))))
-        stop("Missing attribute name(s)")
+        stop("Duplicated attribute name(s)")
 
     ## Assign attributes to tag
     for (i in seq_len(length(a))) {
