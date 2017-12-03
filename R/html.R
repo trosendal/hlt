@@ -38,6 +38,12 @@ html.default <- function(x, ...)
     paste0("<", x$tag, a, ">", content, "</", x$tag, ">")
 }
 
+##' @export
+html.html_html <- function(x, ...)
+{
+    paste0("<!DOCTYPE html>\n", NextMethod())
+}
+
 ##' Create a \sQuote{<html>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
