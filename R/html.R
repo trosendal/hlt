@@ -45,118 +45,128 @@ html.default <- function(x, ...)
 ##' Create a \sQuote{<html>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_html <- function(x)
+html_html <- function(x, ...)
 {
-    html_object("html", x)
+    html_object("html", x, ...)
 }
 
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_body <- function(x)
+html_body <- function(x, ...)
 {
-    html_object("body", x)
+    html_object("body", x, ...)
 }
 
 ##' Create a \sQuote{<p>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_p <- function(x)
+html_p <- function(x, ...)
 {
-    html_object("p", x)
+    html_object("p", x, ...)
 }
 
 ##' Create a cell in an \sQuote{HTML} table
 ##'
 ##' @param x the content to display.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_td <- function(x)
+html_td <- function(x, ...)
 {
     ## Keep object type if logical, numeric, or character.
     if (!any(is.logical(x), is.numeric(x), is.character(x)))
         x <- as.character(x)
     stopifnot(length(x) == 1)
-    html_object("td", x)
+    html_object("td", x, ...)
 }
 
 ##' Create a header cell in an \sQuote{HTML} table
 ##'
 ##' @param x the content to display.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_th <- function(x)
+html_th <- function(x, ...)
 {
     ## Keep object type if logical, numeric, or character.
     if (!any(is.logical(x), is.numeric(x), is.character(x)))
         x <- as.character(x)
     stopifnot(length(x) == 1)
-    html_object("th", x)
+    html_object("th", x, ...)
 }
 
 ##' Create a row in an \sQuote{HTML} table
 ##'
 ##' @param x one row \code{data.frame} with the content of the row.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_tr <- function(x)
+html_tr <- function(x, ...)
 {
     stopifnot(is.data.frame(x), nrow(x) == 1)
     content <- lapply(seq_len(ncol(x)), function(j) {
         html_td(x[, j])
     })
-    html_object("tr", content)
+    html_object("tr", content, ...)
 }
 
 ##' Create a \sQuote{<thead>} tag in an \sQuote{HTML} table
 ##'
 ##' @param x one row \code{data.frame} with the content of the row.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_thead <- function(x)
+html_thead <- function(x, ...)
 {
     content <- html_object("tr", lapply(x, html_th))
-    html_object("thead", content)
+    html_object("thead", content, ...)
 }
 
 ##' Create a \sQuote{<tbody>} tag in an \sQuote{HTML} table
 ##'
 ##' @param x \code{data.frame} with the content of the table body.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_tbody <- function(x)
+html_tbody <- function(x, ...)
 {
     stopifnot(is.data.frame(x))
     content <- lapply(seq_len(nrow(x)), function(i) {
         html_tr(x[i, ])
     })
-    html_object("tbody", content)
+    html_object("tbody", content, ...)
 }
 
 ##' Create a \sQuote{<tfoot>} tag in an \sQuote{HTML} table
 ##'
 ##' @param x one row \code{data.frame} with the content of the foot.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_tfoot <- function(x)
+html_tfoot <- function(x, ...)
 {
     content <- html_object("tr", lapply(x, html_th))
-    html_object("tfoot", content)
+    html_object("tfoot", content, ...)
 }
 
 ##' Create an \sQuote{HTML} table
 ##'
 ##' @param x \code{data.frame} with the content of the table.
 ##' @param tfoot use a tfoot tag.
+##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
-html_table <- function(x, tfoot = FALSE)
+html_table <- function(x, tfoot = FALSE, ...)
 {
     stopifnot(is.data.frame(x))
     header <- html_thead(colnames(x))
@@ -169,7 +179,7 @@ html_table <- function(x, tfoot = FALSE)
         foot <- NULL
     }
 
-    html_object("table", header + foot + content)
+    html_object("table", header + foot + content, ...)
 }
 
 ##' @export
