@@ -1,5 +1,8 @@
+##' @export
 html_object <- function(.tag, .content = NULL, ...)
 {
+    if (missing(.tag))
+        stop("'.tag' is missing")
     object <- list(tag = .tag, content = .content, attributes = list())
     class(object) <- c(paste0("html_", .tag), "html_object")
     tag_attr(object, ...)
