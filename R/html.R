@@ -308,6 +308,21 @@ html_table <- function(x, tfoot = FALSE, ...)
     html_object("table", header + foot + content, ...)
 }
 
+##' Create a \sQuote{H1} tag
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_H1 <- function(x, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("H1", x, ...)
+}
+
 ##' @export
 as.character.html_thead <- function(x, ...)
 {
