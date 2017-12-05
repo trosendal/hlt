@@ -5,7 +5,8 @@ html_object <- function(.tag, .content = NULL, ...)
         stop("'.tag' is missing")
     object <- list(tag = .tag, content = .content, attributes = list())
     class(object) <- c(paste0("html_", .tag), "html_object")
-    tag_attr(object, ...)
+    tag_attr(object) <- list(...)
+    object
 }
 
 ##' @export
@@ -104,9 +105,9 @@ html_link <- function(rel, ...)
 {
     if (missing(rel))
         stop("Missing 'rel' argument")
-    object <- html_object("link")
-    object <- tag_attr(object, rel = rel)
-    tag_attr(object, ...)
+    object <- html_object("link", rel = rel)
+    tag_attr(object) <- list(...)
+    object
 }
 
 ##' Create a \sQuote{<style>} tag
@@ -184,10 +185,9 @@ html_img <- function(src, alt, ...)
         stop("Missing 'src' argument")
     if (missing(alt))
         stop("Missing 'alt' argument")
-    object <- html_object("img")
-    object <- tag_attr(object, src = src)
-    object <- tag_attr(object, alt = alt)
-    tag_attr(object, ...)
+    object <- html_object("img", src = src, alt = alt)
+    tag_attr(object) <- list(...)
+    object
 }
 
 ##' Create a \sQuote{<p>} tag in an \sQuote{HTML} page
@@ -385,8 +385,8 @@ Ops.html_object <- function(e1, e2)
 ##' Add attributes to a tag
 ##'
 ##' @param tag add attributes to tag.
-##' @param ... named attributes to add e.g. \code{style =
-##'     "background-color: lightblue;"}.
+##' @param value list with named attributes to add e.g. \code{list(style =
+##'     "background-color: lightblue;")}.
 ##' @return tag
 ##' @export
 ##' @examples
@@ -400,8 +400,8 @@ Ops.html_object <- function(e1, e2)
 ##'     html_p("Display the 'cars' dataset as a table") +
 ##'     html_table(cars) +
 ##'     html_img(src = img, alt = "'cars' dataset") +
-##'     tag_attr(html_p("Display the 'cars' dataset again, but now with column sums in a 'tfoot' tag"),
-##'              style = "background-color: lightblue;") +
+##'     html_p("Display the 'cars' dataset again, but now with column sums in a 'tfoot' tag",
+##'            style = "background-color: lightblue;") +
 ##'     html_table(rbind(cars, colSums(cars)), tfoot = TRUE) +
 ##'     html_p("Display the 'mtcars' dataset as a table",
 ##'            style = "background-color: lightgreen;") +
@@ -413,19 +413,19 @@ Ops.html_object <- function(e1, e2)
 ##' capture.output(h, file = filename)
 ##' browseURL(filename)
 ##' }
-tag_attr <- function(tag, ...)
+"tag_attr<-" <- function(tag, value)
 {
     ## Check arguments
-    stopifnot(inherits(tag, "html_object"))
-    a <- list(...)
-    if (any(nchar(names(a)) == 0))
+    stopifnot(inherits(tag, "html_object"),
+              is.list(value))
+    if (any(nchar(names(value)) == 0))
         stop("Missing attribute name(s)")
-    if (any(duplicated(names(a))))
+    if (any(duplicated(names(value))))
         stop("Duplicated attribute name(s)")
 
     ## Assign attributes to tag
-    for (i in seq_len(length(a))) {
-        tag$attributes[names(a)[i]] <- a[[i]]
+    for (i in seq_len(length(value))) {
+        tag$attributes[names(value)[i]] <- value[[i]]
     }
 
     tag
