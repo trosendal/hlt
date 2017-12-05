@@ -323,6 +323,81 @@ html_H1 <- function(x, ...)
     html_object("H1", x, ...)
 }
 
+##' Create a \sQuote{H2} tag
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_H2 <- function(x, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("H2", x, ...)
+}
+
+##' Create a \sQuote{H3} tag
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_H3 <- function(x, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("H3", x, ...)
+}
+
+##' Create a \sQuote{H4} tag
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_H4 <- function(x, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("H4", x, ...)
+}
+
+##' Create a \sQuote{H5} tag
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_H5 <- function(x, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("H5", x, ...)
+}
+
+##' Create a \sQuote{H6} tag
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_H6 <- function(x, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object("H6", x, ...)
+}
+
 ##' @export
 as.character.html_thead <- function(x, ...)
 {
