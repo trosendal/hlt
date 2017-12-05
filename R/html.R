@@ -281,7 +281,7 @@ html_tbody <- function(x, ...)
 ##' @export
 html_tfoot <- function(x, ...)
 {
-    content <- html_object("tr", lapply(x, html_th))
+    content <- html_object("tr", lapply(x, html_td))
     html_object("tfoot", content, ...)
 }
 
