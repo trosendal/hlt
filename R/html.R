@@ -73,6 +73,12 @@ html.default <- function(x, pretty, level, indent, ...)
 }
 
 ##' @export
+html.html_comment <- function(x, ...)
+{
+    paste0("<!-- ", x$content, " -->", "\n")
+}
+
+##' @export
 html.html_html <- function(x, pretty, level, indent, ...)
 {
     paste0("<!DOCTYPE html>\n", NextMethod())
@@ -229,6 +235,18 @@ html_img <- function(src, alt, ...)
 html_p <- function(x, ...)
 {
     html_object("p", x, ...)
+}
+
+##' Create a \sQuote{<comment>} tag
+##'
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_comment <- function(content, ...)
+{
+    if (missing(content))
+        stop("Missing 'content' argument")
+    html_object("comment", content, ...)
 }
 
 ##' Create a cell in an \sQuote{HTML} table
