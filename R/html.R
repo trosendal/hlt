@@ -10,16 +10,16 @@ html_object <- function(.tag, .content = NULL, ...)
 }
 
 ##' @export
-print.html_object <- function(x, pretty = TRUE, indent = "", ...)
+print.html_object <- function(x, pretty = TRUE, level = 0, indent = "    ", ...)
 {
-    cat(html(x, pretty = pretty, indent = indent, ...))
+    cat(html(x, pretty = pretty, level = level, indent = indent, ...))
 }
 
 ##' @export
-html <- function(x, pretty = FALSE, indent = "", ...) UseMethod("html")
+html <- function(x, pretty = FALSE, level = 0, indent = "    ", ...) UseMethod("html")
 
 ##' @export
-html.default <- function(x, pretty = FALSE, indent = "", ...)
+html.default <- function(x, pretty, level, indent, ...)
 {
     ## Check for attributes, for example, 'style'
     a <- ""
@@ -30,7 +30,7 @@ html.default <- function(x, pretty = FALSE, indent = "", ...)
     ## Handle start tag and attributes.
     result <- ""
     if (isTRUE(pretty))
-        result <- paste0(indent, result)
+        result <- paste0(paste0(rep(indent, level), collapse = ""), result)
     result <- paste0(result, "<", x$tag, a)
 
     ## Handle content
@@ -44,13 +44,15 @@ html.default <- function(x, pretty = FALSE, indent = "", ...)
         if (inherits(x$content, "html_object")) {
             content <- html(x$content,
                             pretty = pretty,
-                            indent = paste0("    ", indent),
+                            level  = level + 1,
+                            indent = indent,
                             ...)
         } else {
             content <- sapply(x$content, function(xx) {
                 html(xx,
                      pretty = pretty,
-                     indent = paste0("    ", indent),
+                     level  = level + 1,
+                     indent = indent,
                      ...)
             })
             content <- paste0(content, collapse = "")
@@ -58,7 +60,7 @@ html.default <- function(x, pretty = FALSE, indent = "", ...)
 
         result <- paste0(result, content)
         if (isTRUE(pretty))
-            result <- paste0(result, indent)
+            result <- paste0(result, paste0(rep(indent, level), collapse = ""))
         result <- paste0(result, "</", x$tag, ">")
     } else {
         result <- paste0(result, ">", x$content, "</", x$tag, ">")
@@ -71,7 +73,7 @@ html.default <- function(x, pretty = FALSE, indent = "", ...)
 }
 
 ##' @export
-html.html_html <- function(x, pretty = FALSE, indent = "", ...)
+html.html_html <- function(x, pretty, level, indent, ...)
 {
     paste0("<!DOCTYPE html>\n", NextMethod())
 }
