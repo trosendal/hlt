@@ -73,9 +73,12 @@ html.default <- function(x, pretty, level, indent, ...)
 }
 
 ##' @export
-html.html_comment <- function(x, ...)
+html.html_comment <- function(x, pretty, level, indent, ...)
 {
-    paste0("<!-- ", x$content, " -->", "\n")
+    result <- paste0("<!-- ", x$content, " -->")
+    if (isTRUE(pretty))
+        return(paste0(c(rep(indent, level), result, "\n"), collapse = ""))
+    result
 }
 
 ##' @export
