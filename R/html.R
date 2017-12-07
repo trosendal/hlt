@@ -10,40 +10,68 @@ html_object <- function(.tag, .content = NULL, ...)
 }
 
 ##' @export
-print.html_object <- function(x, ...)
+print.html_object <- function(x, pretty = TRUE, indent = "", ...)
 {
-    cat(html(x))
+    cat(html(x, pretty = pretty, indent = indent, ...))
 }
 
 ##' @export
-html <- function(x, ...) UseMethod("html")
+html <- function(x, pretty = FALSE, indent = "", ...) UseMethod("html")
 
 ##' @export
-html.default <- function(x, ...)
+html.default <- function(x, pretty = FALSE, indent = "", ...)
 {
-    ## Extract and handle content.
-    content <- x$content
-    if (is.list(content)) {
-        if (inherits(content, "html_object")) {
-            content <- html(content)
-        } else {
-            content <- paste0(sapply(content, html), collapse = "")
-        }
-    }
-
     ## Check for attributes, for example, 'style'
     a <- ""
     for (i in seq_len(length(x$attributes))) {
         a <- paste0(a, " ", names(x$attributes)[i], "=\"", x$attributes[i], "\"")
     }
 
-    if (is.null(content))
-        return(paste0("<", x$tag, a, " />"))
-    paste0("<", x$tag, a, ">", content, "</", x$tag, ">")
+    ## Handle start tag and attributes.
+    result <- ""
+    if (isTRUE(pretty))
+        result <- paste0(indent, result)
+    result <- paste0(result, "<", x$tag, a)
+
+    ## Handle content
+    if (is.null(x$content)) {
+        result <- paste0(result, " />")
+    } else if (is.list(x$content)) {
+        result <- paste0(result, ">")
+        if (isTRUE(pretty))
+            result <- paste0(result, "\n")
+
+        if (inherits(x$content, "html_object")) {
+            content <- html(x$content,
+                            pretty = pretty,
+                            indent = paste0("    ", indent),
+                            ...)
+        } else {
+            content <- sapply(x$content, function(xx) {
+                html(xx,
+                     pretty = pretty,
+                     indent = paste0("    ", indent),
+                     ...)
+            })
+            content <- paste0(content, collapse = "")
+        }
+
+        result <- paste0(result, content)
+        if (isTRUE(pretty))
+            result <- paste0(result, indent)
+        result <- paste0(result, "</", x$tag, ">")
+    } else {
+        result <- paste0(result, ">", x$content, "</", x$tag, ">")
+    }
+
+    if (isTRUE(pretty))
+        result <- paste0(result, "\n")
+
+    result
 }
 
 ##' @export
-html.html_html <- function(x, ...)
+html.html_html <- function(x, pretty = FALSE, indent = "", ...)
 {
     paste0("<!DOCTYPE html>\n", NextMethod())
 }
