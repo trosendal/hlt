@@ -31,5 +31,12 @@ stopifnot(identical(h, cars))
 h <-as.data.frame(html_table(cars, tfoot = TRUE))
 stopifnot(identical(h, cars))
 
-stopifnot(identical(html(html_table(cars[1:2, ], tfoot = TRUE)),
-                    "<table><thead><tr><th>speed</th><th>dist</th></tr></thead><tfoot><tr><td>4</td><td>10</td></tr></tfoot><tbody><tr><td>4</td><td>2</td></tr></tbody></table>"))
+h <- html_table(cars[1:2, ], tfoot = TRUE)
+h_expected <- "<table><thead><tr><th>speed</th><th>dist</th></tr></thead><tfoot><tr><td>4</td><td>10</td></tr></tfoot><tbody><tr><td>4</td><td>2</td></tr></tbody></table>"
+h_observed <- html(h)
+stopifnot(identical(h_observed, h_expected))
+
+h <- html_table(cars[1:2, ])
+h_expected <- "<table><thead><tr><th>speed</th><th>dist</th></tr></thead><tbody><tr><td>4</td><td>2</td></tr><tr><td>4</td><td>10</td></tr></tbody></table>"
+h_observed <- html(h)
+stopifnot(identical(h_observed, h_expected))
