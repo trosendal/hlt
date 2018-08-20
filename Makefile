@@ -3,7 +3,7 @@ PKG_VERSION=$(shell grep -i ^version DESCRIPTION | cut -d : -d \  -f 2)
 PKG_NAME=$(shell grep -i ^package DESCRIPTION | cut -d : -d \  -f 2)
 
 # Roxygen version to check before generating documentation
-ROXYGEN_VERSION=6.0.1
+ROXYGEN_VERSION=6.1.0
 
 # Name of built package
 PKG_TAR=$(PKG_NAME)_$(PKG_VERSION).tar.gz
