@@ -262,6 +262,16 @@ html_li <- function(x, ...)
     html_object("li", x, ...)
 }
 
+##' Create a \sQuote{<a>} tag in an \sQuote{HTML} page
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_a <- function(x, ...)
+{
+    html_object("a", x, ...)
+}
 
 ##' Create a \sQuote{<comment>} tag
 ##'
