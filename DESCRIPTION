@@ -11,4 +11,5 @@ Depends:
     R (>= 3.4.0)
 Collate:
     'html.R'
+Encoding: UTF-8
 RoxygenNote: 6.1.0
