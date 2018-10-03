@@ -7,9 +7,9 @@
 html_comment(content, ...)
 }
 \arguments{
-\item{...}{tag attributes.}
+\item{content}{the content to display.}
 
-\item{x}{the content to display.}
+\item{...}{tag attributes.}
 }
 \value{
 an \code{html_object}.
