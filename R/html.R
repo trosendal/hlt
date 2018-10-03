@@ -240,6 +240,29 @@ html_p <- function(x, ...)
     html_object("p", x, ...)
 }
 
+##' Create a \sQuote{<ul>} tag in an \sQuote{HTML} page
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_ul <- function(x, ...)
+{
+    html_object("ul", x, ...)
+}
+
+##' Create a \sQuote{<li>} tag in an \sQuote{HTML} page
+##'
+##' @param x the content to display.
+##' @param ... tag attributes.
+##' @return an \code{html_object}.
+##' @export
+html_li <- function(x, ...)
+{
+    html_object("li", x, ...)
+}
+
+
 ##' Create a \sQuote{<comment>} tag
 ##'
 ##' @param ... tag attributes.
