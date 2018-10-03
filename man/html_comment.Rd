@@ -8,6 +8,8 @@ html_comment(content, ...)
 }
 \arguments{
 \item{...}{tag attributes.}
+
+\item{x}{the content to display.}
 }
 \value{
 an \code{html_object}.

@@ -275,6 +275,7 @@ html_a <- function(x, ...)
 
 ##' Create a \sQuote{<comment>} tag
 ##'
+##' @param x the content to display.
 ##' @param ... tag attributes.
 ##' @return an \code{html_object}.
 ##' @export
