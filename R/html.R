@@ -393,6 +393,15 @@ html_table <- function(x, tfoot = FALSE, ...)
     html_object("table", header + foot + content, ...)
 }
 
+html_H <- function(level, x, ...)
+{
+    ## Keep object type if logical, numeric, or character.
+    if (!any(is.logical(x), is.numeric(x), is.character(x)))
+        x <- as.character(x)
+    stopifnot(length(x) == 1)
+    html_object(paste0("H", level), x, ...)
+}
+
 ##' Create a \sQuote{H1} tag
 ##'
 ##' @param x the content to display.
@@ -401,11 +410,7 @@ html_table <- function(x, tfoot = FALSE, ...)
 ##' @export
 html_H1 <- function(x, ...)
 {
-    ## Keep object type if logical, numeric, or character.
-    if (!any(is.logical(x), is.numeric(x), is.character(x)))
-        x <- as.character(x)
-    stopifnot(length(x) == 1)
-    html_object("H1", x, ...)
+    html_H(1, x, ...)
 }
 
 ##' Create a \sQuote{H2} tag
@@ -416,11 +421,7 @@ html_H1 <- function(x, ...)
 ##' @export
 html_H2 <- function(x, ...)
 {
-    ## Keep object type if logical, numeric, or character.
-    if (!any(is.logical(x), is.numeric(x), is.character(x)))
-        x <- as.character(x)
-    stopifnot(length(x) == 1)
-    html_object("H2", x, ...)
+    html_H(2, x, ...)
 }
 
 ##' Create a \sQuote{H3} tag
@@ -431,11 +432,7 @@ html_H2 <- function(x, ...)
 ##' @export
 html_H3 <- function(x, ...)
 {
-    ## Keep object type if logical, numeric, or character.
-    if (!any(is.logical(x), is.numeric(x), is.character(x)))
-        x <- as.character(x)
-    stopifnot(length(x) == 1)
-    html_object("H3", x, ...)
+    html_H(3, x, ...)
 }
 
 ##' Create a \sQuote{H4} tag
@@ -446,11 +443,7 @@ html_H3 <- function(x, ...)
 ##' @export
 html_H4 <- function(x, ...)
 {
-    ## Keep object type if logical, numeric, or character.
-    if (!any(is.logical(x), is.numeric(x), is.character(x)))
-        x <- as.character(x)
-    stopifnot(length(x) == 1)
-    html_object("H4", x, ...)
+    html_H(4, x, ...)
 }
 
 ##' Create a \sQuote{H5} tag
@@ -461,11 +454,7 @@ html_H4 <- function(x, ...)
 ##' @export
 html_H5 <- function(x, ...)
 {
-    ## Keep object type if logical, numeric, or character.
-    if (!any(is.logical(x), is.numeric(x), is.character(x)))
-        x <- as.character(x)
-    stopifnot(length(x) == 1)
-    html_object("H5", x, ...)
+    html_H(5, x, ...)
 }
 
 ##' Create a \sQuote{H6} tag
@@ -476,11 +465,7 @@ html_H5 <- function(x, ...)
 ##' @export
 html_H6 <- function(x, ...)
 {
-    ## Keep object type if logical, numeric, or character.
-    if (!any(is.logical(x), is.numeric(x), is.character(x)))
-        x <- as.character(x)
-    stopifnot(length(x) == 1)
-    html_object("H6", x, ...)
+    html_H(6, x, ...)
 }
 
 ##' @export
