@@ -90,7 +90,7 @@ html.html_html <- function(x, pretty, level, indent, ...)
 ##' Create a \sQuote{<html>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_html <- function(x, ...)
@@ -101,7 +101,7 @@ html_html <- function(x, ...)
 ##' Create a \sQuote{<head>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_head <- function(x, ...)
@@ -112,7 +112,7 @@ html_head <- function(x, ...)
 ##' Create a \sQuote{<title>} tag
 ##'
 ##' @param title the title of the page.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_title <- function(title, ...)
@@ -126,7 +126,7 @@ html_title <- function(title, ...)
 
 ##' Create a \sQuote{<meta>} tag
 ##'
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_meta <- function(...)
@@ -137,7 +137,7 @@ html_meta <- function(...)
 ##' Create a \sQuote{<link>} tag
 ##'
 ##' @param rel relationship between document and linked document.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_link <- function(rel, ...)
@@ -152,7 +152,7 @@ html_link <- function(rel, ...)
 ##' Create a \sQuote{<style>} tag
 ##'
 ##' @param content style information for an HTML document.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_style <- function(content, ...)
@@ -166,7 +166,7 @@ html_style <- function(content, ...)
 ##' Create a \sQuote{<div>} tag
 ##'
 ##' @param content of the div tag.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_div <- function(content, ...)
@@ -179,7 +179,7 @@ html_div <- function(content, ...)
 ##' Create a \sQuote{<script>} tag
 ##'
 ##' @param content of the script tag.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_script <- function(content, ...)
@@ -193,7 +193,7 @@ html_script <- function(content, ...)
 ##' Create a \sQuote{<body>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_body <- function(x, ...)
@@ -203,7 +203,7 @@ html_body <- function(x, ...)
 
 ##' Create a \sQuote{<hr />} tag in an \sQuote{HTML} page
 ##'
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_hr <- function(...)
@@ -215,7 +215,7 @@ html_hr <- function(...)
 ##'
 ##' @param src URL of the image.
 ##' @param alt alternate text for the image.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_img <- function(src, alt, ...)
@@ -232,7 +232,7 @@ html_img <- function(src, alt, ...)
 ##' Create a \sQuote{<p>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_p <- function(x, ...)
@@ -243,7 +243,7 @@ html_p <- function(x, ...)
 ##' Create a \sQuote{<ul>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_ul <- function(x, ...)
@@ -254,7 +254,7 @@ html_ul <- function(x, ...)
 ##' Create a \sQuote{<li>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_li <- function(x, ...)
@@ -265,7 +265,7 @@ html_li <- function(x, ...)
 ##' Create a \sQuote{<a>} tag in an \sQuote{HTML} page
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_a <- function(x, ...)
@@ -276,7 +276,7 @@ html_a <- function(x, ...)
 ##' Create a \sQuote{<comment>} tag
 ##'
 ##' @param content the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_comment <- function(content, ...)
@@ -289,7 +289,7 @@ html_comment <- function(content, ...)
 ##' Create a cell in an \sQuote{HTML} table
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_td <- function(x, ...)
@@ -304,7 +304,7 @@ html_td <- function(x, ...)
 ##' Create a header cell in an \sQuote{HTML} table
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_th <- function(x, ...)
@@ -319,7 +319,7 @@ html_th <- function(x, ...)
 ##' Create a row in an \sQuote{HTML} table
 ##'
 ##' @param x one row \code{data.frame} with the content of the row.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_tr <- function(x, ...)
@@ -334,7 +334,7 @@ html_tr <- function(x, ...)
 ##' Create a \sQuote{<thead>} tag in an \sQuote{HTML} table
 ##'
 ##' @param x one row \code{data.frame} with the content of the row.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_thead <- function(x, ...)
@@ -346,7 +346,7 @@ html_thead <- function(x, ...)
 ##' Create a \sQuote{<tbody>} tag in an \sQuote{HTML} table
 ##'
 ##' @param x \code{data.frame} with the content of the table body.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_tbody <- function(x, ...)
@@ -361,7 +361,7 @@ html_tbody <- function(x, ...)
 ##' Create a \sQuote{<tfoot>} tag in an \sQuote{HTML} table
 ##'
 ##' @param x one row \code{data.frame} with the content of the foot.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_tfoot <- function(x, ...)
@@ -374,7 +374,7 @@ html_tfoot <- function(x, ...)
 ##'
 ##' @param x \code{data.frame} with the content of the table.
 ##' @param tfoot use a tfoot tag.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_table <- function(x, tfoot = FALSE, ...)
@@ -405,7 +405,7 @@ html_H <- function(level, x, ...)
 ##' Create a \sQuote{H1} tag
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_H1 <- function(x, ...)
@@ -416,7 +416,7 @@ html_H1 <- function(x, ...)
 ##' Create a \sQuote{H2} tag
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_H2 <- function(x, ...)
@@ -427,7 +427,7 @@ html_H2 <- function(x, ...)
 ##' Create a \sQuote{H3} tag
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_H3 <- function(x, ...)
@@ -438,7 +438,7 @@ html_H3 <- function(x, ...)
 ##' Create a \sQuote{H4} tag
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_H4 <- function(x, ...)
@@ -449,7 +449,7 @@ html_H4 <- function(x, ...)
 ##' Create a \sQuote{H5} tag
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_H5 <- function(x, ...)
@@ -460,7 +460,7 @@ html_H5 <- function(x, ...)
 ##' Create a \sQuote{H6} tag
 ##'
 ##' @param x the content to display.
-##' @param ... tag attributes.
+##' @template tag-attributes
 ##' @return an \code{html_object}.
 ##' @export
 html_H6 <- function(x, ...)
