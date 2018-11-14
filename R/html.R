@@ -104,7 +104,7 @@ html.html_html <- function(x, pretty, level, indent, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_html <- function(x, ...)
 {
@@ -115,7 +115,7 @@ html_html <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_head <- function(x, ...)
 {
@@ -126,13 +126,13 @@ html_head <- function(x, ...)
 ##'
 ##' @param title the title of the page.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
+##' @export
 ##' @examples
 ##' \dontrun{
 ##' library(hlt)
 ##' html_title("My page title")
 ##' }
-##' @export
 html_title <- function(title, ...)
 {
     ## Keep object type if logical, numeric, or character.
@@ -145,14 +145,14 @@ html_title <- function(title, ...)
 ##' Create a \sQuote{<meta>} tag
 ##'
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
+##' @export
 ##' @examples
 ##' \dontrun{
 ##' library(hlt)
 ##' html_meta(charset = "utf-8")
 ##' html_meta("http-equiv" = "x-ua-compatible")
 ##' }
-##' @export
 html_meta <- function(...)
 {
     html_object("meta", ...)
@@ -162,7 +162,7 @@ html_meta <- function(...)
 ##'
 ##' @param rel relationship between document and linked document.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_link <- function(rel, ...)
 {
@@ -177,7 +177,7 @@ html_link <- function(rel, ...)
 ##'
 ##' @param content style information for an HTML document.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_style <- function(content, ...)
 {
@@ -191,7 +191,7 @@ html_style <- function(content, ...)
 ##'
 ##' @param content of the div tag.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_div <- function(content, ...)
 {
@@ -204,7 +204,7 @@ html_div <- function(content, ...)
 ##'
 ##' @param content of the script tag.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_script <- function(content, ...)
 {
@@ -218,7 +218,7 @@ html_script <- function(content, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_body <- function(x, ...)
 {
@@ -228,7 +228,7 @@ html_body <- function(x, ...)
 ##' Create a \sQuote{<hr />} tag in an \sQuote{HTML} page
 ##'
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_hr <- function(...)
 {
@@ -240,7 +240,7 @@ html_hr <- function(...)
 ##' @param src URL of the image.
 ##' @param alt alternate text for the image.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_img <- function(src, alt, ...)
 {
@@ -257,7 +257,7 @@ html_img <- function(src, alt, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_p <- function(x, ...)
 {
@@ -268,7 +268,7 @@ html_p <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_ul <- function(x, ...)
 {
@@ -279,7 +279,7 @@ html_ul <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_li <- function(x, ...)
 {
@@ -290,7 +290,7 @@ html_li <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_a <- function(x, ...)
 {
@@ -301,7 +301,7 @@ html_a <- function(x, ...)
 ##'
 ##' @param content the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_comment <- function(content, ...)
 {
@@ -314,7 +314,7 @@ html_comment <- function(content, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_td <- function(x, ...)
 {
@@ -329,7 +329,7 @@ html_td <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_th <- function(x, ...)
 {
@@ -344,7 +344,7 @@ html_th <- function(x, ...)
 ##'
 ##' @param x one row \code{data.frame} with the content of the row.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_tr <- function(x, ...)
 {
@@ -359,7 +359,7 @@ html_tr <- function(x, ...)
 ##'
 ##' @param x one row \code{data.frame} with the content of the row.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_thead <- function(x, ...)
 {
@@ -371,7 +371,7 @@ html_thead <- function(x, ...)
 ##'
 ##' @param x \code{data.frame} with the content of the table body.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_tbody <- function(x, ...)
 {
@@ -386,7 +386,7 @@ html_tbody <- function(x, ...)
 ##'
 ##' @param x one row \code{data.frame} with the content of the foot.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_tfoot <- function(x, ...)
 {
@@ -399,7 +399,7 @@ html_tfoot <- function(x, ...)
 ##' @param x \code{data.frame} with the content of the table.
 ##' @param tfoot use a tfoot tag.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_table <- function(x, tfoot = FALSE, ...)
 {
@@ -430,7 +430,7 @@ html_H <- function(level, x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_H1 <- function(x, ...)
 {
@@ -441,7 +441,7 @@ html_H1 <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_H2 <- function(x, ...)
 {
@@ -452,7 +452,7 @@ html_H2 <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_H3 <- function(x, ...)
 {
@@ -463,7 +463,7 @@ html_H3 <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_H4 <- function(x, ...)
 {
@@ -474,7 +474,7 @@ html_H4 <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_H5 <- function(x, ...)
 {
@@ -485,7 +485,7 @@ html_H5 <- function(x, ...)
 ##'
 ##' @param x the content to display.
 ##' @template tag-attributes
-##' @return an \code{html_object}.
+##' @template return-html_object
 ##' @export
 html_H6 <- function(x, ...)
 {
