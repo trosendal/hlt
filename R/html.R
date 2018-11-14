@@ -1,4 +1,9 @@
+##' html_object
+##'
 ##' @export
+##' @param .tag The tag of the html object
+##' @param .content The content of the html object
+##' @param ... Other arguments
 html_object <- function(.tag, .content = NULL, ...)
 {
     if (missing(.tag))
@@ -15,7 +20,15 @@ print.html_object <- function(x, pretty = TRUE, level = 0, indent = "    ", ...)
     cat(html(x, pretty = pretty, level = level, indent = indent, ...))
 }
 
+##' html
+##'
+##'
 ##' @export
+##' @param x An object to be coerced to html
+##' @param pretty Fancy indentation?
+##' @param level Indentation level
+##' @param indent String for indentation
+##' @param ... Other parameters
 html <- function(x, pretty = FALSE, level = 0, indent = "    ", ...) UseMethod("html")
 
 ##' @export
@@ -114,6 +127,11 @@ html_head <- function(x, ...)
 ##' @param title the title of the page.
 ##' @template tag-attributes
 ##' @return an \code{html_object}.
+##' @examples
+##' \dontrun{
+##' library(hlt)
+##' html_title("My page title")
+##' }
 ##' @export
 html_title <- function(title, ...)
 {
@@ -128,6 +146,12 @@ html_title <- function(title, ...)
 ##'
 ##' @template tag-attributes
 ##' @return an \code{html_object}.
+##' @examples
+##' \dontrun{
+##' library(hlt)
+##' html_meta(charset = "utf-8")
+##' html_meta("http-equiv" = "x-ua-compatible")
+##' }
 ##' @export
 html_meta <- function(...)
 {

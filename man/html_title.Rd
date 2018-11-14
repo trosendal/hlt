@@ -17,3 +17,9 @@ an \code{html_object}.
 \description{
 Create a \sQuote{<title>} tag
 }
+\examples{
+\dontrun{
+library(hlt)
+html_title("My page title")
+}
+}

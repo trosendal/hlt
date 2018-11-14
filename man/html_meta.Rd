@@ -15,3 +15,10 @@ an \code{html_object}.
 \description{
 Create a \sQuote{<meta>} tag
 }
+\examples{
+\dontrun{
+library(hlt)
+html_meta(charset = "utf-8")
+html_meta("http-equiv" = "x-ua-compatible")
+}
+}
