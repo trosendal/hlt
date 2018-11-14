@@ -1,6 +1,6 @@
 Package: hlt
 Title: Package to produce html and maybe latex tables
-Version: 0.1
+Version: 0.1.1
 Author: Thomas Rosendal, Stefan Widgren
 Maintainer: Thomas Rosendal <thomas.rosendal@sva.se>
 Description: The package will generate an html table.
