@@ -83,3 +83,8 @@ h6_expected <- structure(list(tag = "H6",
                          class = c("html_H6", "html_object"))
 h6_observed <- html_H6("Hello world!")
 stopifnot(identical(h6_observed, h6_expected))
+
+## Attributes
+h <-html_table(cars)
+tag_attr(h) <- list(id = "table1")
+stopifnot(identical(h$attributes$id, "table1"))
