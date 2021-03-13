@@ -4,8 +4,7 @@
 ##' @param .tag The tag of the html object
 ##' @param .content The content of the html object
 ##' @param ... Other arguments
-html_object <- function(.tag, .content = NULL, ...)
-{
+html_object <- function(.tag, .content = NULL, ...) {
     if (missing(.tag))
         stop("'.tag' is missing")
     object <- list(tag = .tag, content = .content, attributes = list())
@@ -15,8 +14,7 @@ html_object <- function(.tag, .content = NULL, ...)
 }
 
 ##' @export
-print.html_object <- function(x, pretty = TRUE, level = 0, indent = "    ", ...)
-{
+print.html_object <- function(x, pretty = TRUE, level = 0, indent = "    ", ...) {
     cat(html(x, pretty = pretty, level = level, indent = indent, ...))
 }
 
@@ -32,8 +30,7 @@ print.html_object <- function(x, pretty = TRUE, level = 0, indent = "    ", ...)
 html <- function(x, pretty = FALSE, level = 0, indent = "    ", ...) UseMethod("html")
 
 ##' @export
-html.default <- function(x, pretty, level, indent, ...)
-{
+html.default <- function(x, pretty, level, indent, ...) {
     ## Check for attributes, for example, 'style'
     a <- ""
     for (i in seq_len(length(x$attributes))) {
@@ -86,8 +83,7 @@ html.default <- function(x, pretty, level, indent, ...)
 }
 
 ##' @export
-html.html_comment <- function(x, pretty, level, indent, ...)
-{
+html.html_comment <- function(x, pretty, level, indent, ...) {
     result <- paste0("<!-- ", x$content, " -->")
     if (isTRUE(pretty))
         return(paste0(c(rep(indent, level), result, "\n"), collapse = ""))
@@ -95,8 +91,7 @@ html.html_comment <- function(x, pretty, level, indent, ...)
 }
 
 ##' @export
-html.html_html <- function(x, pretty, level, indent, ...)
-{
+html.html_html <- function(x, pretty, level, indent, ...) {
     paste0("<!DOCTYPE html>\n", NextMethod())
 }
 
@@ -106,8 +101,7 @@ html.html_html <- function(x, pretty, level, indent, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_html <- function(x, ...)
-{
+html_html <- function(x, ...) {
     html_object("html", x, ...)
 }
 
@@ -117,8 +111,7 @@ html_html <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_head <- function(x, ...)
-{
+html_head <- function(x, ...) {
     html_object("head", x, ...)
 }
 
@@ -133,8 +126,7 @@ html_head <- function(x, ...)
 ##' library(hlt)
 ##' html_title("My page title")
 ##' }
-html_title <- function(title, ...)
-{
+html_title <- function(title, ...) {
     ## Keep object type if logical, numeric, or character.
     if (!any(is.logical(title), is.numeric(title), is.character(title)))
         title <- as.character(title)
@@ -153,8 +145,7 @@ html_title <- function(title, ...)
 ##' html_meta(charset = "utf-8")
 ##' html_meta("http-equiv" = "x-ua-compatible")
 ##' }
-html_meta <- function(...)
-{
+html_meta <- function(...) {
     html_object("meta", ...)
 }
 
@@ -164,8 +155,7 @@ html_meta <- function(...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_link <- function(rel, ...)
-{
+html_link <- function(rel, ...) {
     if (missing(rel))
         stop("Missing 'rel' argument")
     object <- html_object("link", rel = rel)
@@ -179,8 +169,7 @@ html_link <- function(rel, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_style <- function(content, ...)
-{
+html_style <- function(content, ...) {
     if (missing(content))
         stop("Missing 'content' argument")
     content <- paste0(as.character(content), collapse = "\n")
@@ -193,8 +182,7 @@ html_style <- function(content, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_div <- function(content, ...)
-{
+html_div <- function(content, ...) {
     if (missing(content))
         stop("Missing 'content' argument")
     html_object("div", content, ...)
@@ -206,8 +194,7 @@ html_div <- function(content, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_script <- function(content, ...)
-{
+html_script <- function(content, ...) {
     if (missing(content))
         stop("Missing 'content' argument")
     content <- paste0(as.character(content), collapse = "\n")
@@ -220,8 +207,7 @@ html_script <- function(content, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_body <- function(x, ...)
-{
+html_body <- function(x, ...) {
     html_object("body", x, ...)
 }
 
@@ -230,8 +216,7 @@ html_body <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_hr <- function(...)
-{
+html_hr <- function(...) {
     html_object("hr", ...)
 }
 
@@ -242,8 +227,7 @@ html_hr <- function(...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_img <- function(src, alt, ...)
-{
+html_img <- function(src, alt, ...) {
     if (missing(src))
         stop("Missing 'src' argument")
     if (missing(alt))
@@ -259,8 +243,7 @@ html_img <- function(src, alt, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_p <- function(x, ...)
-{
+html_p <- function(x, ...) {
     html_object("p", x, ...)
 }
 
@@ -270,8 +253,7 @@ html_p <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_ul <- function(x, ...)
-{
+html_ul <- function(x, ...) {
     html_object("ul", x, ...)
 }
 
@@ -281,8 +263,7 @@ html_ul <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_li <- function(x, ...)
-{
+html_li <- function(x, ...) {
     html_object("li", x, ...)
 }
 
@@ -292,8 +273,7 @@ html_li <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_a <- function(x, ...)
-{
+html_a <- function(x, ...) {
     html_object("a", x, ...)
 }
 
@@ -303,8 +283,7 @@ html_a <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_comment <- function(content, ...)
-{
+html_comment <- function(content, ...) {
     if (missing(content))
         stop("Missing 'content' argument")
     html_object("comment", content, ...)
@@ -316,8 +295,7 @@ html_comment <- function(content, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_td <- function(x, ...)
-{
+html_td <- function(x, ...) {
     ## Keep object type if logical, numeric, or character.
     if (!any(is.logical(x), is.numeric(x), is.character(x)))
         x <- as.character(x)
@@ -331,8 +309,7 @@ html_td <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_th <- function(x, ...)
-{
+html_th <- function(x, ...) {
     ## Keep object type if logical, numeric, or character.
     if (!any(is.logical(x), is.numeric(x), is.character(x)))
         x <- as.character(x)
@@ -346,8 +323,7 @@ html_th <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_tr <- function(x, ...)
-{
+html_tr <- function(x, ...) {
     stopifnot(is.data.frame(x), nrow(x) == 1)
     content <- lapply(seq_len(ncol(x)), function(j) {
         html_td(x[, j])
@@ -361,8 +337,7 @@ html_tr <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_thead <- function(x, ...)
-{
+html_thead <- function(x, ...) {
     content <- html_object("tr", lapply(x, html_th))
     html_object("thead", content, ...)
 }
@@ -373,8 +348,7 @@ html_thead <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_tbody <- function(x, ...)
-{
+html_tbody <- function(x, ...) {
     stopifnot(is.data.frame(x))
     content <- lapply(seq_len(nrow(x)), function(i) {
         html_tr(x[i, ])
@@ -388,8 +362,7 @@ html_tbody <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_tfoot <- function(x, ...)
-{
+html_tfoot <- function(x, ...) {
     content <- html_object("tr", lapply(x, html_td))
     html_object("tfoot", content, ...)
 }
@@ -401,8 +374,7 @@ html_tfoot <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_table <- function(x, tfoot = FALSE, ...)
-{
+html_table <- function(x, tfoot = FALSE, ...) {
     stopifnot(is.data.frame(x))
     header <- html_thead(colnames(x))
     if (isTRUE(tfoot)) {
@@ -417,8 +389,7 @@ html_table <- function(x, tfoot = FALSE, ...)
     html_object("table", header + foot + content, ...)
 }
 
-html_H <- function(level, x, ...)
-{
+html_H <- function(level, x, ...) {
     ## Keep object type if logical, numeric, or character.
     if (!any(is.logical(x), is.numeric(x), is.character(x)))
         x <- as.character(x)
@@ -432,8 +403,7 @@ html_H <- function(level, x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_H1 <- function(x, ...)
-{
+html_H1 <- function(x, ...) {
     html_H(1, x, ...)
 }
 
@@ -443,8 +413,7 @@ html_H1 <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_H2 <- function(x, ...)
-{
+html_H2 <- function(x, ...) {
     html_H(2, x, ...)
 }
 
@@ -454,8 +423,7 @@ html_H2 <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_H3 <- function(x, ...)
-{
+html_H3 <- function(x, ...) {
     html_H(3, x, ...)
 }
 
@@ -465,8 +433,7 @@ html_H3 <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_H4 <- function(x, ...)
-{
+html_H4 <- function(x, ...) {
     html_H(4, x, ...)
 }
 
@@ -476,8 +443,7 @@ html_H4 <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_H5 <- function(x, ...)
-{
+html_H5 <- function(x, ...) {
     html_H(5, x, ...)
 }
 
@@ -487,40 +453,34 @@ html_H5 <- function(x, ...)
 ##' @template tag-attributes
 ##' @template return-html_object
 ##' @export
-html_H6 <- function(x, ...)
-{
+html_H6 <- function(x, ...) {
     html_H(6, x, ...)
 }
 
 ##' @export
-as.character.html_thead <- function(x, ...)
-{
+as.character.html_thead <- function(x, ...) {
     ## Conbine the content of the th cells to a character vector.
     as.character(sapply(x$content$content, "[", "content"))
 }
 
 ##' @export
-as.data.frame.html_tr <- function(x, row.names, optional, ...)
-{
+as.data.frame.html_tr <- function(x, row.names, optional, ...) {
     ## Combine all td cells and coerce to a data.frame
     as.data.frame(lapply(x$content, "[", "content"), stringsAsFactors = FALSE)
 }
 
 ##' @export
-as.data.frame.html_tbody <- function(x, row.names, optional, ...)
-{
+as.data.frame.html_tbody <- function(x, row.names, optional, ...) {
     do.call("rbind", lapply(x$content, as.data.frame))
 }
 
 ##' @export
-as.data.frame.html_tfoot <- function(x, row.names, optional, ...)
-{
+as.data.frame.html_tfoot <- function(x, row.names, optional, ...) {
     as.data.frame(x$content)
 }
 
 ##' @export
-as.data.frame.html_table <- function(x, row.names, optional, ...)
-{
+as.data.frame.html_table <- function(x, row.names, optional, ...) {
     ## content index 1: thead
     ## content index 2: tfoot if tfoot exists, else tbody
     ## content index 3: tbody if tfoot exists, else unused
@@ -532,8 +492,7 @@ as.data.frame.html_table <- function(x, row.names, optional, ...)
 }
 
 ##' @export
-Ops.html_object <- function(e1, e2)
-{
+Ops.html_object <- function(e1, e2) {
     if (!identical(.Generic , "+"))
         stop(paste0("'", .Generic, "' not defined for 'html_object'"))
     if (is.null(e1))
@@ -582,8 +541,7 @@ Ops.html_object <- function(e1, e2)
 ##' capture.output(h, file = filename)
 ##' browseURL(filename)
 ##' }
-"tag_attr<-" <- function(tag, value)
-{
+"tag_attr<-" <- function(tag, value) {
     ## Check arguments
     stopifnot(inherits(tag, "html_object"),
               is.list(value))
