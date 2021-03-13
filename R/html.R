@@ -497,7 +497,7 @@ as.data.frame.html_table <- function(x, row.names, optional, ...) {
 
 ##' @export
 Ops.html_object <- function(e1, e2) {
-    if (!identical(.Generic , "+"))
+    if (!identical(.Generic, "+"))
         stop(paste0("'", .Generic, "' not defined for 'html_object'"))
     if (is.null(e1))
         return(e2)
@@ -510,7 +510,7 @@ Ops.html_object <- function(e1, e2) {
         stop("Not implemented")
     }
 
-    e1[[length(e1)+1]] <- e2
+    e1[[length(e1) + 1]] <- e2
     e1
 }
 
