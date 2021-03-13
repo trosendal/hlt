@@ -14,7 +14,8 @@ html_object <- function(.tag, .content = NULL, ...) {
 }
 
 ##' @export
-print.html_object <- function(x, pretty = TRUE, level = 0, indent = "    ", ...) {
+print.html_object <- function(x, pretty = TRUE, level = 0,
+                              indent = "    ", ...) {
     cat(html(x, pretty = pretty, level = level, indent = indent, ...))
 }
 
@@ -27,14 +28,17 @@ print.html_object <- function(x, pretty = TRUE, level = 0, indent = "    ", ...)
 ##' @param level Indentation level
 ##' @param indent String for indentation
 ##' @param ... Other parameters
-html <- function(x, pretty = FALSE, level = 0, indent = "    ", ...) UseMethod("html")
+html <- function(x, pretty = FALSE, level = 0, indent = "    ", ...) {
+    UseMethod("html")
+}
 
 ##' @export
 html.default <- function(x, pretty, level, indent, ...) {
     ## Check for attributes, for example, 'style'
     a <- ""
     for (i in seq_len(length(x$attributes))) {
-        a <- paste0(a, " ", names(x$attributes)[i], "=\"", x$attributes[i], "\"")
+        a <- paste0(a, " ", names(x$attributes)[i],
+                    "=\"", x$attributes[i], "\"")
     }
 
     ## Handle start tag and attributes.
@@ -528,7 +532,8 @@ Ops.html_object <- function(e1, e2) {
 ##'     html_p("Display the 'cars' dataset as a table") +
 ##'     html_table(cars) +
 ##'     html_img(src = img, alt = "'cars' dataset") +
-##'     html_p("Display the 'cars' dataset again, but now with column sums in a 'tfoot' tag",
+##'     html_p(paste("Display the 'cars' dataset again, but now",
+##'                  "with column sums in a 'tfoot' tag"),
 ##'            style = "background-color: lightblue;") +
 ##'     html_table(rbind(cars, colSums(cars)), tfoot = TRUE) +
 ##'     html_p("Display the 'mtcars' dataset as a table",
