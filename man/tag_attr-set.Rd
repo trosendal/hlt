@@ -29,7 +29,8 @@ h <- html_html(html_body(
     html_p("Display the 'cars' dataset as a table") +
     html_table(cars) +
     html_img(src = img, alt = "'cars' dataset") +
-    html_p("Display the 'cars' dataset again, but now with column sums in a 'tfoot' tag",
+    html_p(paste("Display the 'cars' dataset again, but now",
+                 "with column sums in a 'tfoot' tag"),
            style = "background-color: lightblue;") +
     html_table(rbind(cars, colSums(cars)), tfoot = TRUE) +
     html_p("Display the 'mtcars' dataset as a table",

@@ -2,9 +2,6 @@
 PKG_VERSION=$(shell grep -i ^version DESCRIPTION | cut -d : -d \  -f 2)
 PKG_NAME=$(shell grep -i ^package DESCRIPTION | cut -d : -d \  -f 2)
 
-# Roxygen version to check before generating documentation
-ROXYGEN_VERSION=6.1.0
-
 # Name of built package
 PKG_TAR=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 
@@ -17,9 +14,8 @@ install:
 # 2) Remove old doc
 # 3) Generate documentation
 roxygen:
-	Rscript -e "library(roxygen2); stopifnot(packageVersion('roxygen2') == '$(ROXYGEN_VERSION)')"
 	rm -f man/*.Rd
-	cd .. && Rscript -e "library(roxygen2); roxygenize('$(PKG_NAME)')"
+	cd .. && Rscript -e "roxygen2::roxygenize('$(PKG_NAME)')"
 
 # Generate PDF output from the Rd sources
 # 1) Rebuild documentation with roxygen
